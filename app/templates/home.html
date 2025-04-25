@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .emps{
+            display: grid;
+            grid-template-columns: repeat(6,1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .each{
+            text-align: center;
+            pad: 1rem;
+            margin: 1rem;
+            border: 1px solid black;
+            width: 180px;
+        }
+
+        .each a {
+            display: inline-block;
+            margin: 5px;
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Welcome to Employee management system</h1>
+
+    <div style="text-align: center;">
+        <h1>Create Employee details</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="">Emp name</label>
+            <input type="text" id="empname" name="empname" value="{{emp.Empname}}" required> <br><br>
+
+            <label for="">Emp id</label>
+            <input type="text" id="empid" name="empid" value="{{emp.Empid}}" required> <br><br>
+
+            <label for="">Emp dept</label>
+            <input type="text" id="empdept" name="empdept" value="{{emp.Empdept}}" required> <br><br>
+
+            <label for="">Address</label>
+            <input type="text" id="Address" name="Address" value="{{emp.Address}}" required> <br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
+
+    <div>
+        <h1>Employee details</h1>
+        <div class="emps">
+            {% for i in data %}
+                    <div class="each">
+                        <h4>{{i.Empname}}</h4>
+                        <strong>{{i.Empid}}</strong>
+                        <p>{{i.Empdept}}</p>
+                        <p>{{i.Address}}</p>
+                        <a href="{% url 'edit_emp' i.id %}">Edit</a>
+                        <a href="{% url 'delete_emp' i.id %}">Delete</a>
+                    </div>
+            {% empty %}
+                <h4>No records found</h4>
+            {% endfor %}
+    </div>
+
+</body>
+</html>
